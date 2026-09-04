@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Issue / Return{% endblock %}
+{% block content %}
+<h2 class="mb-4">Issue / Return Books</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card p-3 mb-3">
+            <h5>Issue a Book</h5>
+            <p class="text-muted small">Use the API docs to perform this action with authentication.</p>
+            <pre class="bg-light p-2 small">POST /issue/
+{
+  "book_id": 1,
+  "member_id": 1,
+  "due_days": 14
+}</pre>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card p-3 mb-3">
+            <h5>Return a Book</h5>
+            <p class="text-muted small">Fine is auto-calculated if returned after due date.</p>
+            <pre class="bg-light p-2 small">POST /issue/return
+{
+  "issue_id": 1
+}</pre>
+        </div>
+    </div>
+</div>
+<a href="/docs" target="_blank" class="btn btn-primary">Open API Docs to Issue/Return</a>
+{% endblock %}

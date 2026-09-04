@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2 class="mb-4">Admin Dashboard</h2>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Books</h5>
+                <p class="card-text fs-2">{{ stats.total_books }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Members</h5>
+                <p class="card-text fs-2">{{ stats.total_members }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Books Currently Issued</h5>
+                <p class="card-text fs-2">{{ stats.books_issued }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<p class="text-muted">Tip: Use the <a href="/docs" target="_blank">Swagger API docs</a> to add books, register members, and issue/return books directly.</p>
+{% endblock %}

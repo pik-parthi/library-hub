@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Library Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="bg-light">
+<div class="d-flex justify-content-center align-items-center" style="height:100vh;">
+    <div class="card p-4 shadow" style="width: 380px;">
+        <h3 class="text-center mb-3">📚 Library Login</h3>
+        <div id="error-box" class="alert alert-danger d-none"></div>
+        <form id="loginForm">
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        <p class="text-center mt-3 mb-0">
+            <a href="/docs" target="_blank">Register a new user via /docs</a>
+        </p>
+    </div>
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const errorBox = document.getElementById("error-box");
+    errorBox.classList.add("d-none");
+
+    const formData = new URLSearchParams();
+    formData.append("username", username);
+    formData.append("password", password);
+
+    try {
+        const res = await fetch("/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: formData,
+        });
+        if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.detail || "Login failed");
+        }
+        const data = await res.json();
+        localStorage.setItem("access_token", data.access_token);
+        window.location.href = "/dashboard";
+    } catch (err) {
+        errorBox.textContent = err.message;
+        errorBox.classList.remove("d-none");
+    }
+});
+</script>
+</body>
+</html>
